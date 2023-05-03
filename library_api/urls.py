@@ -16,10 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Book Library API(pdf format only)",
+      default_version='v1',
+      description="""This Book Library API allows books and files in pdf format
+       to be added and retrieved by authenticated users. 
+       Written with Python, Django, Django Rest Framework.""",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="seyithedev@gmail.com"),
+      license=openapi.License(name="MIT License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",include("library_App.urls")),
-
+    path("docs/", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui' ),
 ]

@@ -17,7 +17,7 @@ This API(Application Programming Interface) allows books and files in pdf format
 ### Run on your local machine
 Open up your terminal, follow these steps below:
 ```
-git clone
+git clone https://github.com/seyiadel/book-library-backend.git
 ```
 Change the directory to book-library-backend
 ```

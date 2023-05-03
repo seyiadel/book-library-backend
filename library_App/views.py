@@ -47,17 +47,6 @@ class AllBooks(APIView):
         serializer = BookSerializer(books, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-class CreateBook(APIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request):
-        serializer = BookSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.validated_data['uploaded_by'] = self.request.user
-            serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SingleBook(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -68,6 +57,13 @@ class SingleBook(APIView):
         serializer = BookSerializer(book)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    def post(self, request):
+        serializer = BookSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.validated_data['uploaded_by'] = self.request.user
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
         book = Book.objects.filter(id=pk)

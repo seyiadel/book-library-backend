@@ -1,9 +1,8 @@
 from django.urls import path
-from library_App.views import Home, SignUpUser, LogInUser, SingleBook, AllBooks, CreateBook
+from library_App.views import SignUpUser, LogInUser, SingleBook, AllBooks, CreateBook
 from knox.views import LogoutView, LogoutAllView
 
 urlpatterns = [
-    path("", Home.as_view()),
     path("signup/", SignUpUser.as_view(), name='signup'),
     path("login/",LogInUser.as_view(), name='login'),
     path("logout/", LogoutView.as_view(), name='logout'),

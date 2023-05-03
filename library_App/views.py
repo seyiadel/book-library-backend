@@ -12,11 +12,6 @@ from knox.auth import TokenAuthentication
 from drf_yasg.utils import swagger_auto_schema
 
 # Create your views here.
-
-class Home(APIView):
-    def get(self, request):
-        return Response(data={"intro":"This is the Library API"})
-    
 class SignUpUser(APIView):
 
     @swagger_auto_schema(request_body=UserSerializer())

@@ -46,6 +46,14 @@ class AllBooks(APIView):
         serializer = BookSerializer(books, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+class LibraryUser(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    @swagger_auto_schema(UserSerializer())
+    def get(self, request):
+        serializer = UserSerializer(self.request.user)
+        return Response(data=serializer.data, status=status.HTTP)
 
 class CreateBook(APIView):
     authentication_classes = (TokenAuthentication,)
